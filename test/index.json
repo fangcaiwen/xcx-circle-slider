@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "测试页",
+  "usingComponents": {
+    "wxzx-circle-plate": "../../component/wxzx-circle-plate/index"
+  },
+  "disableScroll": true
+}

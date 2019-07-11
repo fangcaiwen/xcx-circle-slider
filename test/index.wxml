@@ -1,0 +1,5 @@
+<!--pages/test/index.wxml-->
+
+<view class="viewContainer">
+  <wxzx-circle-plate id="wxzxCirclePlate" bind:handletouchmove="plateOnchange"></wxzx-circle-plate>
+</view>
