@@ -33,9 +33,13 @@ Component({
       type: Boolean,
       value: false, // 是否相应触摸事件
     },
-    touchCircleR: {
+    gearWheelR: {
       type: Number,
-      value: 8, // 触摸圆的半径
+      value: 110, // 齿轮的半径
+    },
+    gearWheelShortWidth: {
+        type: Number,
+        value: 15, // 齿轮的宽度
     },
     circleR: {
       type: Number,
@@ -109,16 +113,16 @@ Component({
               context.setLineWidth(1);
               if (i > hasOver) {
                 context.setStrokeStyle(this.data.gearWheelDefaultColor);
-                  context.moveTo(0, -110);
+                  context.moveTo(0, -this.data.gearWheelR);
               } else if (i >= hasOver - 2 && i <= hasOver + 1) {
                 context.setStrokeStyle(this.data.gearWheelActiveColor);
-                  context.moveTo(0, -115);
+                  context.moveTo(0, -(this.data.gearWheelR+5));
               } else {
-                  context.moveTo(0, -110);
+                  context.moveTo(0, -this.data.gearWheelR);
                 context.setStrokeStyle(this.data.gearWheelActiveColor);
               }
 
-              context.lineTo(0, -95);
+              context.lineTo(0, -(this.data.gearWheelR-this.data.gearWheelShortWidth));
               context.stroke();
               context.rotate(3.6 * Math.PI / 180);
           }
@@ -153,7 +157,7 @@ Component({
       ctx.setFontSize(20);
       ctx.setTextAlign('center');
       let rel = parseInt((this.data.startAngle + str * Math.PI * 2 + Math.PI / 2) * 100 / (2 * Math.PI));
-      let showText = rel + '%';
+      let showText = '亮度：'+ rel + '%';
       ctx.fillText(showText, this.data.circleCenterX, 20);
     },
 
@@ -223,8 +227,8 @@ Component({
       let x = event.touches[0].x;
       let y = event.touches[0].y;
 
-      let touchCircleX = 150 + this.data.circleR * Math.sin(this.data.progressValue * Math.PI * 2);
-      let touchCircleY = 150 - this.data.circleR * Math.cos(this.data.progressValue * Math.PI * 2);
+      let touchCircleX = this.data.circleCenterX + this.data.circleR * Math.sin(this.data.progressValue * Math.PI * 2);
+      let touchCircleY = this.data.circleCenterY - this.data.circleR * Math.cos(this.data.progressValue * Math.PI * 2);
 
       if (touchCircleX + this.data.touchCircleR * 2 < x || x < touchCircleX - this.data.touchCircleR * 2 || touchCircleY + this.data.touchCircleR * 2 < y || y < touchCircleY - this.data.touchCircleR * 2) {
         this.setData({
